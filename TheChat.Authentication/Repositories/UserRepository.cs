@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheChat.Business.Interfaces.Entities;
+using TheChat.Business.Entities;
 using TheChat.Business.Interfaces.Repositories;
 
 namespace TheChat.Business.Repositories
@@ -17,7 +17,7 @@ namespace TheChat.Business.Repositories
             _datacontext = datacontext;
         }
 
-        public void Add(IUser user)
+        public void Add(User user)
         {
             _datacontext.Add(user);
             _datacontext.SaveChanges();
@@ -28,27 +28,27 @@ namespace TheChat.Business.Repositories
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<IUser> GetAll()
+        public IEnumerable<User> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _datacontext.Users;
         }
 
-        public IUser GetById(int id)
+        public User GetById(int id)
         {
             return _datacontext.Users.Find(id);
         }
 
-        public IUser GetByName(string name)
+        public User GetByName(string name)
         {
             return _datacontext.Users.FirstOrDefault(u => u.UserName == name);
         }
 
-        public IUser GetByRole(string role)
+        public User GetByRole(string role)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(IUser user)
+        public void Update(User user)
         {
             throw new System.NotImplementedException();
         }

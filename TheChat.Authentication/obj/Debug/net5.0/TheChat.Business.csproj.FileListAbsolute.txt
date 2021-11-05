@@ -1,8 +1,9 @@
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.deps.json
+C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.runtimeconfig.json
+C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.runtimeconfig.dev.json
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\ref\TheChat.Business.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.pdb
-C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.csproj.AssemblyReference.cache
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.AssemblyInfoInputs.cache
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.AssemblyInfo.cs
@@ -10,6 +11,4 @@ C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheC
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\ref\TheChat.Business.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.pdb
-C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.runtimeconfig.json
-C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\bin\Debug\net5.0\TheChat.Business.runtimeconfig.dev.json
 C:\Users\bnkho\source\repos\TheChat\TheChat.Authentication\obj\Debug\net5.0\TheChat.Business.genruntimeconfig.cache

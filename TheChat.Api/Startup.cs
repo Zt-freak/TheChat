@@ -16,7 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheChat.Business;
 using TheChat.Business.Entities;
+using TheChat.Business.Interfaces.Repositories;
+using TheChat.Business.Interfaces.Services;
+using TheChat.Business.Repositories;
+using TheChat.Business.Services;
 
 namespace TheChat.Api
 {
@@ -32,14 +37,19 @@ namespace TheChat.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DbContext>();
+            services.AddDbContext<ChatDbContext>();
 
             services.AddDefaultIdentity<User>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<DbContext>();
+                .AddEntityFrameworkStores<ChatDbContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

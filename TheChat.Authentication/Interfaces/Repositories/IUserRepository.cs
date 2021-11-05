@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using TheChat.Business.Interfaces.Entities;
+using TheChat.Business.Entities;
 
 namespace TheChat.Business.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        IEnumerable<IUser> GetAll();
-        IUser GetById(int id);
-        IUser GetByName(string name);
-        void Add(IUser user);
-        void Update(IUser user);
+        IEnumerable<User> GetAll();
+        User GetById(int id);
+        User GetByName(string name);
+        void Add(User user);
+        void Update(User user);
         void Delete(int id);
-        IUser GetByRole(string role);
+        User GetByRole(string role);
     }
 }
