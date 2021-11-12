@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using TheChat.Business;
+using TheChat.Business.Entities;
 using TheChat.Business.Interfaces.Repositories;
 using TheChat.Business.Interfaces.Services;
 using TheChat.Business.Repositories;
@@ -30,9 +32,9 @@ namespace TheChat.TheApi
         {
             services.AddDbContext<ChatDbContext>();
 
-            //services.AddDefaultIdentity<User>()
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ChatDbContext>();
+            services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ChatDbContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
