@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using TheChat.Business.Entities;
 using TheChat.Business.Interfaces.Repositories;
 using TheChat.Business.Interfaces.Services;
@@ -13,15 +16,26 @@ namespace TheChat.Business.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
+        private readonly IConfiguration _configuration;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository, IConfiguration configuration)
         {
             _repository = repository;
+            _configuration = configuration;
         }
 
         public User GetUserById(int id)
         {
             return _repository.GetById(id);
+        }
+        public User GetUserByUsername(string name)
+        {
+            return _repository.GetByUsername(name);
+        }
+
+        public IEnumerable<SimpleUserData> GetUsersByActivity(DateTime timeToCheck)
+        {
+            return _repository.GetByActivity(timeToCheck);
         }
 
         public User GetUserByRole(string role)
@@ -29,7 +43,7 @@ namespace TheChat.Business.Services
             return _repository.GetByRole(role);
         }
 
-        public void RegisterUser(string userName, string email, string password)
+        public User RegisterUser(string userName, string email, string password)
         {
             if (_repository.GetAll().Any(x => x.UserName == userName))
                 throw new Exception($"Username is already taken");
@@ -41,21 +55,50 @@ namespace TheChat.Business.Services
             newUser.UserName = userName;
 
             _repository.Add(newUser);
+            return newUser;
         }
 
-        public void ValidateUser(string userName, string password)
+        public bool ValidateUser(string userName, string password)
         {
-            User user = _repository.GetByName(userName);
+            User user = _repository.GetByUsername(userName);
             PasswordHasher<User> hasher = new();
 
-            switch (hasher.VerifyHashedPassword(user, user.PasswordHash, password))
+            return hasher.VerifyHashedPassword(user, user.PasswordHash, password) switch
             {
-                case PasswordVerificationResult.Failed:
-                    throw new Exception();
-                case PasswordVerificationResult.Success:
-                case PasswordVerificationResult.SuccessRehashNeeded:
-                    break;
+                PasswordVerificationResult.Success or PasswordVerificationResult.SuccessRehashNeeded => true,
+                _ => false,
+            };
+        }
+
+        public string GenerateJWT(string userName, string password)
+        {
+            if (ValidateUser(userName, password))
+            {
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+                User currentUser = _repository.GetByUsername(userName);
+
+                var claims = new[] {
+                    new Claim(JwtRegisteredClaimNames.Sub, currentUser.UserName),
+                    new Claim(JwtRegisteredClaimNames.Email, currentUser.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                  _configuration["Jwt:Issuer"],
+                  claims,
+                  expires: DateTime.Now.AddMinutes(120),
+                  signingCredentials: credentials);
+
+                return new JwtSecurityTokenHandler().WriteToken(token);
             }
+            return String.Empty;
+        }
+
+        public DateTime UpdateActivity(User user)
+        {
+            return _repository.UpdateActivity(user);
         }
     }
 }

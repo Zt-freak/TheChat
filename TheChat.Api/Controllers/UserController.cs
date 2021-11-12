@@ -25,7 +25,7 @@ namespace TheChat.Api.Controllers
         {
             try
             {
-                _service.RegisterUser(registration.UserName, registration.Email, registration.Password);
+                User newUser = _service.RegisterUser(registration.UserName, registration.Email, registration.Password);
                 return Ok();
             }
             catch (Exception e)
@@ -35,13 +35,32 @@ namespace TheChat.Api.Controllers
         }
 
         [HttpPost]
-        [Route("validate")]
+        [Route("validateUser")]
         public ActionResult Validate([FromBody] UserRegister registration)
         {
             try
             {
-                _service.ValidateUser(registration.UserName, registration.Password);
+                bool isValid = _service.ValidateUser(registration.UserName, registration.Password);
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return new BadRequestResult();
+            }
+        }
+
+        [HttpPost]
+        [Route("getJWT")]
+        public ActionResult GetJWT([FromBody] UserLogin login)
+        {
+            try
+            {
+                if (_service.ValidateUser(login.UserName, login.Password))
+                {
+                    string JWT = _service.GenerateJWT(login.UserName, login.Password);
+                    return Ok(JWT);
+                }
+                return new BadRequestResult();
             }
             catch (Exception e)
             {

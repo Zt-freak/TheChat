@@ -11,7 +11,7 @@ namespace TheChat.Business.Migrations
 {
     [DbContext(typeof(ChatDbContext))]
     [Migration("20211104121402_initial")]
-    partial class initial
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

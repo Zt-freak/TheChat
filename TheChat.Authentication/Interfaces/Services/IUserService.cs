@@ -9,9 +9,13 @@ namespace TheChat.Business.Interfaces.Services
 {
     public interface IUserService
     {
-        void RegisterUser(string userName, string email, string password);
+        public User RegisterUser(string userName, string email, string password);
         public User GetUserById(int id);
+        public User GetUserByUsername(string name);
+        public IEnumerable<SimpleUserData> GetUsersByActivity(DateTime timeToCheck);
+        public DateTime UpdateActivity(User user);
         public User GetUserByRole(string role);
-        void ValidateUser(string userName, string password);
+        public bool ValidateUser(string userName, string password);
+        public string GenerateJWT(string userName, string password);
     }
 }

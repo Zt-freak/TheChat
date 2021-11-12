@@ -73,8 +73,8 @@ C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\staticwebassets
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\staticwebassets\TheChat.Api.StaticWebAssets.xml
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\scopedcss\bundle\TheChat.Api.styles.css
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.RazorTargetAssemblyInfo.cache
-C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.csproj.CopyComplete
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\ref\TheChat.Api.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.pdb
 C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.genruntimeconfig.cache
+C:\Users\bnkho\source\repos\TheChat\TheChat.Api\obj\Debug\net5.0\TheChat.Api.csproj.CopyComplete

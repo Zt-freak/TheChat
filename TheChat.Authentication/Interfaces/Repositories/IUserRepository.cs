@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TheChat.Business.Entities;
 
 namespace TheChat.Business.Interfaces.Repositories
@@ -7,10 +8,11 @@ namespace TheChat.Business.Interfaces.Repositories
     {
         IEnumerable<User> GetAll();
         User GetById(int id);
-        User GetByName(string name);
+        User GetByUsername(string name);
+        IEnumerable<SimpleUserData> GetByActivity(DateTime dateToCheck);
         void Add(User user);
-        void Update(User user);
         void Delete(int id);
         User GetByRole(string role);
+        DateTime UpdateActivity(User user);
     }
 }

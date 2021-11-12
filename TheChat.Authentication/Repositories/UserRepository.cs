@@ -38,9 +38,9 @@ namespace TheChat.Business.Repositories
             return _datacontext.Users.Find(id);
         }
 
-        public User GetByName(string name)
+        public User GetByUsername(string name)
         {
-            return _datacontext.Users.FirstOrDefault(u => u.UserName == name);
+            return _datacontext.Users.Single(u => u.UserName == name);
         }
 
         public User GetByRole(string role)
@@ -48,9 +48,24 @@ namespace TheChat.Business.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(User user)
+        public IEnumerable<SimpleUserData> GetByActivity(DateTime dateToCheck)
         {
-            throw new System.NotImplementedException();
+            return _datacontext.Users
+                .Where(u => u.LastActive >= dateToCheck)
+                .Select(
+                u => new SimpleUserData()
+                    {
+                        Id = u.Id,
+                        Username = u.UserName
+                    }
+                );
+        }
+
+        public DateTime UpdateActivity(User user)
+        {
+            user.LastActive = DateTime.Now;
+            _datacontext.SaveChanges();
+            return (DateTime)user.LastActive;
         }
     }
 }
