@@ -69,4 +69,3 @@ C:\Users\bnkho\source\repos\TheChat\TheChat.TheApi\bin\Debug\net5.0\TheChat.TheA
 C:\Users\bnkho\source\repos\TheChat\TheChat.TheApi\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.TheApi\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\bnkho\source\repos\TheChat\TheChat.TheApi\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
-C:\Users\bnkho\source\repos\TheChat\TheChat.TheApi\obj\Debug\net5.0\TheChat.TheApi.csproj.CopyComplete

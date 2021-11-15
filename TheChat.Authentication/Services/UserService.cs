@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using TheChat.Business.Entities;
 using TheChat.Business.Interfaces.Repositories;
 using TheChat.Business.Interfaces.Services;
@@ -17,20 +18,23 @@ namespace TheChat.Business.Services
     {
         private readonly IUserRepository _repository;
         private readonly IConfiguration _configuration;
+        private readonly UserManager<User> _userManager;
 
-        public UserService(IUserRepository repository, IConfiguration configuration)
+        public UserService(IUserRepository repository, IConfiguration configuration, UserManager<User> userManager)
         {
             _repository = repository;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
-        public User GetUserById(int id)
+        public Task<User> GetUserById(string id)
         {
-            return _repository.GetById(id);
+            return _userManager.FindByIdAsync(id);
         }
-        public User GetUserByUsername(string name)
+
+        public Task<User> GetUserByUsername(string name)
         {
-            return _repository.GetByUsername(name);
+            return _userManager.FindByNameAsync(name);
         }
 
         public IEnumerable<SimpleUserData> GetUsersByActivity(DateTime timeToCheck)
@@ -38,9 +42,9 @@ namespace TheChat.Business.Services
             return _repository.GetByActivity(timeToCheck);
         }
 
-        public User GetUserByRole(string role)
+        public Task<IList<User>> GetUserByRole(string role)
         {
-            return _repository.GetByRole(role);
+            return _userManager.GetUsersInRoleAsync(role);
         }
 
         public User RegisterUser(string userName, string email, string password)
@@ -99,6 +103,21 @@ namespace TheChat.Business.Services
         public DateTime UpdateActivity(User user)
         {
             return _repository.UpdateActivity(user);
+        }
+
+        public Task<IList<string>> GetRoles(User user)
+        {
+            return _userManager.GetRolesAsync(user);
+        }
+
+        public Task<IdentityResult> AddRole(User user, string roleName)
+        {
+            return _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public Task<IdentityResult> RemoveRole(User user, string roleName)
+        {
+            return _userManager.RemoveFromRoleAsync(user, roleName);
         }
     }
 }

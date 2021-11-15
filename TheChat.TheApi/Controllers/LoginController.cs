@@ -44,7 +44,7 @@ namespace TheChat.TheApi.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var user = _service.GetUserByUsername(userInfo.Username);
+            var user = _service.GetUserByUsername(userInfo.Username).Result;
 
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),

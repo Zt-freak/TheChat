@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,13 +15,9 @@ namespace TheChat.TheApi.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _service;
-        private RoleManager<IdentityRole> _roleManager;
-        private UserManager<User> _userManager;
-        public UserController(IUserService service, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public UserController(IUserService service)
         {
             _service = service;
-            _roleManager = roleManager;
-            _userManager = userManager;
         }
 
         [Authorize]
@@ -31,35 +26,45 @@ namespace TheChat.TheApi.Controllers
         public IActionResult GetOnlineUsers()
         {
             string username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub").Value;
-            User currentUser = _service.GetUserByUsername(username);
+            User currentUser = _service.GetUserByUsername(username).Result;
             _service.UpdateActivity(currentUser);
 
             return Ok(_service.GetUsersByActivity(DateTime.Now.AddSeconds(-10)));
         }
 
         [HttpPost]
+        [Route("/getUser")]
+        public async Task<IActionResult> GetUser(string id)
+        {
+            var user = await _service.GetUserById(id);
+            var roles = await _service.GetRoles(user);
+
+            return Ok(new { User = user, Roles = roles });
+        }
+
+        [HttpPost]
         [Route("/updateRoles")]
-        public async Task<IActionResult> Update(RoleEditModel model)
+        public async Task<IActionResult> UpdateRoles(RoleEditModel model)
         {
             IdentityResult result;
             if (ModelState.IsValid)
             {
-                foreach (string userId in model.AddIds ?? new string[] { })
+                foreach (string userId in model.AddIds ?? Array.Empty<string>())
                 {
-                    User user = await _userManager.FindByIdAsync(userId);
+                    User user = await _service.GetUserById(userId);
                     if (user != null)
                     {
-                        result = await _userManager.AddToRoleAsync(user, model.RoleName);
+                        result = await _service.AddRole(user, model.RoleName);
                         if (!result.Succeeded)
                             return BadRequest(result);
                     }
                 }
-                foreach (string userId in model.DeleteIds ?? new string[] { })
+                foreach (string userId in model.DeleteIds ?? Array.Empty<string>())
                 {
-                    User user = await _userManager.FindByIdAsync(userId);
+                    User user = await _service.GetUserById(userId);
                     if (user != null)
                     {
-                        result = await _userManager.RemoveFromRoleAsync(user, model.RoleName);
+                        result = await _service.RemoveRole(user, model.RoleName);
                         if (!result.Succeeded)
                             BadRequest(result);
                     }
