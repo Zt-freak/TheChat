@@ -10,7 +10,5 @@ namespace TheChat.Business.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public IEnumerable<User> Members { get; set; }
-        public IEnumerable<User> Moderators { get; set; }
     }
 }

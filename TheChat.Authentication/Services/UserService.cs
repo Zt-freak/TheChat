@@ -57,6 +57,7 @@ namespace TheChat.Business.Services
             newUser.PasswordHash = hasher.HashPassword(newUser, password);
             newUser.Email = email;
             newUser.UserName = userName;
+            newUser.IsBanned = false;
 
             _repository.Add(newUser);
             return newUser;
@@ -82,6 +83,8 @@ namespace TheChat.Business.Services
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
                 User currentUser = _repository.GetByUsername(userName);
+                if ((bool)currentUser.IsBanned)
+                    return String.Empty;
 
                 var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub, currentUser.UserName),

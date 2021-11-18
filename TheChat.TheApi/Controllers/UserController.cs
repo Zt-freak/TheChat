@@ -34,9 +34,9 @@ namespace TheChat.TheApi.Controllers
 
         [HttpPost]
         [Route("/getUser")]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<IActionResult> GetUser(User inputUser)
         {
-            var user = await _service.GetUserById(id);
+            var user = _service.GetUserById(inputUser.Id).Result;
             var roles = await _service.GetRoles(user);
 
             return Ok(new { User = user, Roles = roles });

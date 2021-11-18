@@ -15,8 +15,8 @@ namespace TheChat.Business.Interfaces.Services
         public DateTime UpdateActivity(User user);
         public Task<IList<User>> GetUserByRole(string role);
         public Task<IList<string>> GetRoles(User user);
-        public Task<IdentityResult> AddRole(User user, string roleName);
         public Task<IdentityResult> RemoveRole(User user, string roleName);
+        public Task<IdentityResult> AddRole(User user, string roleName);
         public bool ValidateUser(string userName, string password);
         public string GenerateJWT(string userName, string password);
     }
