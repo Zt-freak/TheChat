@@ -22,7 +22,7 @@ namespace TheChat.TheApi.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("/online")]
+        [Route("online")]
         public IActionResult GetOnlineUsers()
         {
             string username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub").Value;
@@ -33,7 +33,7 @@ namespace TheChat.TheApi.Controllers
         }
 
         [HttpPost]
-        [Route("/getUser")]
+        [Route("get")]
         public async Task<IActionResult> GetUser(User inputUser)
         {
             var user = _service.GetUserById(inputUser.Id).Result;
@@ -43,7 +43,7 @@ namespace TheChat.TheApi.Controllers
         }
 
         [HttpPost]
-        [Route("/updateRoles")]
+        [Route("updateRoles")]
         public async Task<IActionResult> UpdateRoles(RoleEditModel model)
         {
             IdentityResult result;

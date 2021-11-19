@@ -17,17 +17,17 @@ namespace TheChat.Business.Repositories
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<ChatMember>> AddMember(int chatId, string userId)
+        public IEnumerable<ChatMember> AddMember(int chatId, string userId)
         {
             ChatMember newMember = new()
             {
-                Chat = _datacontext.Chats.SingleOrDefault(c => c.Id == chatId),
-                User = _userManager.FindByIdAsync(userId).Result,
+                ChatId = chatId,
+                UserId = userId,
                 Moderator = false
             };
 
             _datacontext.Add(newMember);
-            await _datacontext.SaveChangesAsync();
+            _datacontext.SaveChanges();
 
             return GetAllMembers(chatId);
         }

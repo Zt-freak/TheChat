@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheChat.TheApi", "TheChat.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheChat.Tests", "TheChat.Tests\TheChat.Tests.csproj", "{55CE2483-57E4-47DA-BCDA-A716C4CF96F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheChat.Mvc", "TheChat.Mvc\TheChat.Mvc.csproj", "{78B9A710-84D4-482D-A73C-2513A517E55E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{55CE2483-57E4-47DA-BCDA-A716C4CF96F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CE2483-57E4-47DA-BCDA-A716C4CF96F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CE2483-57E4-47DA-BCDA-A716C4CF96F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B9A710-84D4-482D-A73C-2513A517E55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B9A710-84D4-482D-A73C-2513A517E55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B9A710-84D4-482D-A73C-2513A517E55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B9A710-84D4-482D-A73C-2513A517E55E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
